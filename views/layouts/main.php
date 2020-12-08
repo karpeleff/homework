@@ -40,14 +40,15 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-             ['label' => 'Report', 'url' => ['/report']],
+             ['label' => 'Report', 'url' => ['/report/doc']],
               ['label' => 'Post', 'url' => ['/post']],
                ['label' => 'Energy', 'url' => ['/energy']],
                 ['label' => 'DES', 'url' => ['/engine']],
-              ['label' => 'Extinguishers', 'url' => ['/extinguisher/index']],
-               ['label' => 'Gen', 'url' => ['/gii']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+                 ['label' => 'Extinguishers', 'url' => ['/extinguisher/index']],
+                  ['label' => 'Gen', 'url' => ['/gii']],
+                   ['label' => 'About', 'url' => ['/site/about']],
+                    ['label' => 'Contact', 'url' => ['/site/contact']],
+                    ['label' => '###', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
