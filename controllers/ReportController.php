@@ -82,6 +82,27 @@ public function  Create_doc($data)
   $last_day = cal_days_in_month(CAL_GREGORIAN, $mons, $year); //последний день месяца
 
 
+switch ($data[2]) {
+	    case '1':
+		# code...
+		break;
+		case '2':
+		# code...
+		break;
+		case '3':
+		# code...
+		break;
+		case '4':
+		# code...
+		break;
+	
+	default:
+		# code...
+		break;
+}
+
+
+
 
 $_monthsList = array(
   "01" => "января",
@@ -140,7 +161,7 @@ foreach($rows as $item)
 {
 
    $work_time = (strtotime($item['stop_time']) - strtotime($item['start_time'])) / 60 ; // работа в минутах
-   echo '<br>';
+  
 
   $templateProcessor->setValue(array
                                               ('des_type#'    . $i,
