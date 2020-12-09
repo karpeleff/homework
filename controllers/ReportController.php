@@ -84,7 +84,7 @@ public function  Create_doc($data)
 
 switch ($data[2]) {
 	    case '1':
-		# code...
+		//echo $data[2];
 		break;
 		case '2':
 		# code...
@@ -101,7 +101,7 @@ switch ($data[2]) {
 		break;
 }
 
-
+//die;
 
 
 $_monthsList = array(
@@ -145,6 +145,9 @@ $_monthsList_1 = array(
 
 $i = 1;
 
+ $itog_sd = [];
+ $itog_adr = [];
+
 $count = count($rows);// количество полей
 
 ///echo $count;
@@ -157,11 +160,16 @@ $templateProcessor->cloneRow('des_type', $count);// клонируем поля 
 
 //die;
 
-foreach($rows as $item)
+foreach($rows as $item)//начало цикла
 {
 
    $work_time = (strtotime($item['stop_time']) - strtotime($item['start_time'])) / 60 ; // работа в минутах
-  
+
+   $work_time =   ($work_time) / 60 ;// часы и сотые доли часа
+
+   $work_time = round($work_time, 2);//округляем до сотых 
+
+
 
   $templateProcessor->setValue(array
                                               ('des_type#'    . $i,
@@ -177,14 +185,32 @@ foreach($rows as $item)
                                                         substr ($item['start_time'],8,7),
                                                         substr ($item['stop_time'], 0,8),
                                                         substr ($item['stop_time'],8,7),
-                                                      round(($work_time / 60), 2)  , //время работы в часах и сотых долях часа
-                                                        $item['type_start']));
+                                                                $work_time  , 
+                                                                $item['type_start']));
 
    $i++;
 
+ if ($item['engine_type'] === 'ADR16.5')//подсчет общего времени работы ДГУ
+            {
+                $itog_adr[] = $work_time;
+            } else
+            {
+                $itog_sd[] = $work_time;
+            }
 
-}
 
+}// конец цикла
+
+
+        $sd  = array_sum($itog_sd);
+
+        $adr = array_sum($itog_adr);
+
+
+
+    $templateProcessor->setValue('itog_adr',$adr);
+
+	$templateProcessor->setValue('itog_sd',$sd);
 
     $templateProcessor->setValue('mons',$_monthsList[$mons]);
 
