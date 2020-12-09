@@ -18,6 +18,7 @@ class m201006_032041_engine extends Migration
             'stop_time' => $this->string()->notNull(),
             'engine_type' => $this->string()->notNull(),
             'type_start' => $this->string()->notNull(),
+            'work_time' => $this->string()->notNull(),
             
         ]);
     }

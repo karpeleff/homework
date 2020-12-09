@@ -8,6 +8,7 @@ use app\models\EngineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use DateTime;
 
 /**
  * EngineController implements the CRUD actions for Engine model.
@@ -62,7 +63,7 @@ class EngineController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate_1()
     {
         $model = new Engine();
 
@@ -74,6 +75,41 @@ class EngineController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
+   public function actionCreate()
+    {
+        $model = new Engine();
+
+
+
+      if($model->load(Yii::$app->request->post()))
+      {
+
+         $now_date = new DateTime($model->start_time);   
+         $old_date = new DateTime($model->stop_time);
+         $interval = $now_date->diff($old_date);
+         $model->work_time =  $interval->format("%H:%I");
+         $model->save(); 
+
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Updates an existing Engine model.

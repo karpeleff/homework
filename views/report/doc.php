@@ -40,7 +40,7 @@ $form = ActiveForm::begin([
         ]
 ]);?>
 
-
+<br>
 
 <?= $form->field($model, 'report_type')->dropDownList([
                                                        '1' => 'наработка ДЭС',

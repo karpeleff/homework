@@ -26,7 +26,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
     	'minuteStep' => 1,
         'autoclose' => true,
-        'format' => 'dd-mm-yy  HH:ii P',
+        'format' => 'dd-mm-yyyy  HH:ii P',
         'todayBtn' => true
     ]
 ]);?>
@@ -41,7 +41,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
     	'minuteStep' => 1,
         'autoclose' => true,
-        'format' => 'dd-mm-yy  HH:ii P',
+        'format' => 'dd-mm-yyyy  HH:ii P',
         'todayBtn' => true
     ]
 ]);?>
@@ -50,7 +50,7 @@ use dosamigos\datetimepicker\DateTimePicker;
    <?php 
 
 $items = [
-	 "ADR16/5" => "ADR16/5",
+	 "ADR16.5" => "ADR16.5",
     "SD6000E" => "SD6000E",
    
     

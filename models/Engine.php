@@ -45,6 +45,7 @@ class Engine extends \yii\db\ActiveRecord
             'stop_time' => 'Stop Time',
             'engine_type' => 'Engine Type',
             'type_start' => 'Type Start',
+            'work_time'  =>  'Work Time'
         ];
     }
 }
