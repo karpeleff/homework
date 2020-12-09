@@ -73,11 +73,11 @@ if(Yii::$app->request->isPost)
 public function  Create_doc($data)
 {
 	
-  $query =  substr($data[0] , 3, 5);
+  $query =  substr($data[0] , 3, 7);
 
-  $mons = substr($data[0] , 3, 2);
+  $mons  =  substr($data[0] , 3, 2);
 
-  $year = substr($data[0],6,2);//две цифры года
+  $year  =  substr($data[0],6,4);//
 
   $last_day = cal_days_in_month(CAL_GREGORIAN, $mons, $year); //последний день месяца
 
@@ -163,12 +163,21 @@ $templateProcessor->cloneRow('des_type', $count);// клонируем поля 
 foreach($rows as $item)//начало цикла
 {
 
-   $work_time = (strtotime($item['stop_time']) - strtotime($item['start_time'])) / 60 ; // работа в минутах
+  // $work_time = (strtotime($item['stop_time']) - strtotime($item['start_time'])) / 60 ; // работа в минутах
 
-   $work_time =   ($work_time) / 60 ;// часы и сотые доли часа
+  // $work_time =   ($work_time) / 60 ;// часы и сотые доли часа
 
-   $work_time = round($work_time, 2);//округляем до сотых 
+  // $work_time = round($work_time, 2);//округляем до сотых 
 
+	$hour =   substr ($item['work_time'],0,2);
+
+	$min  =   substr ($item['work_time'],3,2);
+
+	$itog = ($hour * 60) + ($min) ;
+
+	$itog = ($itog / 60);
+
+	$itog = round($itog, 2);
 
 
   $templateProcessor->setValue(array
@@ -181,21 +190,21 @@ foreach($rows as $item)//начало цикла
                                                'reason#'      . $i),
                                                 
                                                  array( $item['engine_type'], 
-                                                        substr ($item['start_time'],0,8),
-                                                        substr ($item['start_time'],8,7),
-                                                        substr ($item['stop_time'], 0,8),
-                                                        substr ($item['stop_time'],8,7),
-                                                                $work_time  , 
+                                                        substr ($item['start_time'],0,10),
+                                                        substr ($item['start_time'],11,5),
+                                                        substr ($item['stop_time'], 0,10),
+                                                        substr ($item['stop_time'],11,5),
+                                                                $itog  , 
                                                                 $item['type_start']));
 
    $i++;
 
  if ($item['engine_type'] === 'ADR16.5')//подсчет общего времени работы ДГУ
             {
-                $itog_adr[] = $work_time;
+                $itog_adr[] = $itog;
             } else
             {
-                $itog_sd[] = $work_time;
+                $itog_sd[] = $itog;
             }
 
 

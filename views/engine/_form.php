@@ -26,7 +26,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
     	'minuteStep' => 1,
         'autoclose' => true,
-        'format' => 'dd-mm-yyyy  HH:ii P',
+        'format' => 'dd-mm-yyyy HH:ii P',
         'todayBtn' => true
     ]
 ]);?>
@@ -41,7 +41,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
     	'minuteStep' => 1,
         'autoclose' => true,
-        'format' => 'dd-mm-yyyy  HH:ii P',
+        'format' => 'dd-mm-yyyy HH:ii P',
         'todayBtn' => true
     ]
 ]);?>

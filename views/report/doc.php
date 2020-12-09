@@ -25,7 +25,7 @@ $form = ActiveForm::begin([
     'template' => '{addon}{input}',
         'clientOptions' => [
             'autoclose' => true,
-            'format' => 'dd-mm-yy'
+            'format' => 'dd-mm-yyyy'
         ]
 ]);?>
 
@@ -36,7 +36,7 @@ $form = ActiveForm::begin([
     'template' => '{addon}{input}',
         'clientOptions' => [
             'autoclose' => true,
-            'format' => 'dd-mm-yy'
+            'format' => 'dd-mm-yyyy'
         ]
 ]);?>
 
