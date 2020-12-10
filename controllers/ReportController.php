@@ -72,22 +72,13 @@ if(Yii::$app->request->isPost)
 
 public function  Create_doc($data)
 {
-	
-  $query =  substr($data[0] , 3, 7);
-
-  $mons  =  substr($data[0] , 3, 2);
-
-  $year  =  substr($data[0],6,4);//
-
-  $last_day = cal_days_in_month(CAL_GREGORIAN, $mons, $year); //последний день месяца
-
 
 switch ($data[2]) {
 	    case '1':
-		//echo $data[2];
+		$this->createSpr($data);
 		break;
 		case '2':
-		# code...
+		echo "нет метода";
 		break;
 		case '3':
 		# code...
@@ -99,9 +90,24 @@ switch ($data[2]) {
 	default:
 		# code...
 		break;
+
+     }
+
+
+
 }
 
-//die;
+
+public function createSpr($data)
+{
+
+ $query =  substr($data[0] , 3, 7);
+
+  $mons  =  substr($data[0] , 3, 2);
+
+  $year  =  substr($data[0],6,4);//
+
+  $last_day = cal_days_in_month(CAL_GREGORIAN, $mons, $year); //последний день месяца
 
 
 $_monthsList = array(
@@ -145,29 +151,17 @@ $_monthsList_1 = array(
 
 $i = 1;
 
- $itog_sd = [];
+ $itog_sd  = [];
  $itog_adr = [];
 
 $count = count($rows);// количество полей
-
-///echo $count;
-
-
 
 $templateProcessor = new TemplateProcessor('uploads/template_dizel_work.docx');//
 
 $templateProcessor->cloneRow('des_type', $count);// клонируем поля в документе
 
-//die;
-
 foreach($rows as $item)//начало цикла
-{
-
-  // $work_time = (strtotime($item['stop_time']) - strtotime($item['start_time'])) / 60 ; // работа в минутах
-
-  // $work_time =   ($work_time) / 60 ;// часы и сотые доли часа
-
-  // $work_time = round($work_time, 2);//округляем до сотых 
+  {
 
 	$hour =   substr ($item['work_time'],0,2);
 
@@ -179,8 +173,7 @@ foreach($rows as $item)//начало цикла
 
 	$itog = round($itog, 2);
 
-
-  $templateProcessor->setValue(array
+    $templateProcessor->setValue(array
                                               ('des_type#'    . $i,
                                                'start_date#'  . $i,
                                                'start_time#'  . $i,
@@ -204,18 +197,15 @@ foreach($rows as $item)//начало цикла
                 $itog_adr[] = $itog;
             } else
             {
-                $itog_sd[] = $itog;
+                $itog_sd[]  = $itog;
             }
 
-
-}// конец цикла
-
-
-        $sd  = array_sum($itog_sd);
-
-        $adr = array_sum($itog_adr);
+    }// конец цикла
 
 
+    $sd  = array_sum($itog_sd);
+
+    $adr = array_sum($itog_adr);
 
     $templateProcessor->setValue('itog_adr',$adr);
 
@@ -227,8 +217,7 @@ foreach($rows as $item)//начало цикла
 
     $templateProcessor->setValue('last',$last_day);
 
-    $templateProcessor->saveAs("uploads/Справка о работе дизелей за ".$_monthsList_1[$mons].".docx");
-
+    $templateProcessor->saveAs("uploads/Справка о работе дизелей за ".$_monthsList_1[$mons]." ".$year." г.docx");
 
 }
 
