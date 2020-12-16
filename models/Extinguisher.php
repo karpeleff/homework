@@ -45,12 +45,12 @@ class Extinguisher extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'type' => 'Type',
-            'number' => 'Number',
-            'install_place' => 'Install Place',
-            'factory_number' => 'Factory Number',
-            'staff_type' => 'Staff Type',
-            'weight' => 'Weight',
+            'type' => 'Тип',
+            'number' => 'Номер',
+            'install_place' => 'Место установки',
+            'factory_number' => 'Заводской номер',
+            'staff_type' => 'Тип вещества',
+            'weight' => 'Вес',
         ];
     }
 }

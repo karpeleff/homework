@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ExtinguisherSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Extinguishers';
+$this->title = 'Огнетушители';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="extinguisher-index">
@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Extinguisher', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить огнетушитель', ['create'], ['class' => 'btn btn-success']) ?>
+         <?= Html::a('Печать стикеров', ['print'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'staff_type')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'weight')->textInput() ?>
+    
+    <?= $form->field($model, 'press')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

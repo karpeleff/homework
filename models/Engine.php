@@ -41,10 +41,10 @@ class Engine extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'start_time' => 'Start Time',
-            'stop_time' => 'Stop Time',
-            'engine_type' => 'Engine Type',
-            'type_start' => 'Type Start',
+            'start_time' => 'Время пуска',
+            'stop_time' => 'Время останова',
+            'engine_type' => 'Тип ДГУ',
+            'type_start' => 'Тип запуска',
             'work_time'  =>  'Work Time'
         ];
     }

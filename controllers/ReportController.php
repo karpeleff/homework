@@ -156,7 +156,8 @@ $i = 1;
 
 $count = count($rows);// количество полей
 
-$templateProcessor = new TemplateProcessor('uploads/template_dizel_work.docx');//
+$templateProcessor   = new TemplateProcessor('uploads/template_dizel_work.docx');
+$templateProcessor_2 = new TemplateProcessor('uploads/template_akt_spis.docx');//
 
 $templateProcessor->cloneRow('des_type', $count);// клонируем поля в документе
 
@@ -217,7 +218,45 @@ foreach($rows as $item)//начало цикла
 
     $templateProcessor->setValue('last',$last_day);
 
+/////////////////////
+
+    $templateProcessor_2 = new TemplateProcessor('uploads/template_akt_spis.docx');
+
+
+    $rate_sd  = $sd  * 1.9;
+
+    $rate_adr = $adr * 2.7;
+
+    $rate_sd  = round($rate_sd,2);
+
+    $rate_adr = round($rate_adr,2);
+
+    $common   = $rate_sd + $rate_adr;
+
+    $templateProcessor_2->setValue('itog_adr',$adr);
+
+	$templateProcessor_2->setValue('itog_sd',$sd);
+
+    $templateProcessor_2->setValue('mons',$_monthsList[$mons]);
+
+    $templateProcessor_2->setValue('year',$year);
+
+    $templateProcessor_2->setValue('last',$last_day);
+
+    $templateProcessor_2->setValue('rate_adr',$rate_adr);
+
+    $templateProcessor_2->setValue('rate_sd',$rate_sd);
+
+    $templateProcessor_2->setValue('itog',$common);
+
+
+
+
+
+
     $templateProcessor->saveAs("uploads/Справка о работе дизелей за ".$_monthsList_1[$mons]." ".$year." г.docx");
+
+    $templateProcessor_2->saveAs("uploads/Акт списания ГСМ дизель за ".$_monthsList_1[$mons]." ".$year." г.docx");
 
 }
 

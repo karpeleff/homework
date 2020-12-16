@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Extinguisher;
-use app\models\ExtinguisherSearch;
+use app\models\Benzin;
+use app\models\BenzinSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ExtinguisherController implements the CRUD actions for Extinguisher model.
+ * BenzinController implements the CRUD actions for Benzin model.
  */
-class ExtinguisherController extends Controller
+class BenzinController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class ExtinguisherController extends Controller
     }
 
     /**
-     * Lists all Extinguisher models.
+     * Lists all Benzin models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ExtinguisherSearch();
+        $searchModel = new BenzinSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,19 +44,8 @@ class ExtinguisherController extends Controller
         ]);
     }
 
-
-public function actionPrint()
-{
-   $model  =  Extinguisher::find()->asArray()->all(); 
-
- return $this->render('print',['model' => $model]);
-
-
-}
-
-
     /**
-     * Displays a single Extinguisher model.
+     * Displays a single Benzin model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -69,13 +58,13 @@ public function actionPrint()
     }
 
     /**
-     * Creates a new Extinguisher model.
+     * Creates a new Benzin model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Extinguisher();
+        $model = new Benzin();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -87,7 +76,7 @@ public function actionPrint()
     }
 
     /**
-     * Updates an existing Extinguisher model.
+     * Updates an existing Benzin model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -107,7 +96,7 @@ public function actionPrint()
     }
 
     /**
-     * Deletes an existing Extinguisher model.
+     * Deletes an existing Benzin model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -121,15 +110,15 @@ public function actionPrint()
     }
 
     /**
-     * Finds the Extinguisher model based on its primary key value.
+     * Finds the Benzin model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Extinguisher the loaded model
+     * @return Benzin the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Extinguisher::findOne($id)) !== null) {
+        if (($model = Benzin::findOne($id)) !== null) {
             return $model;
         }
 

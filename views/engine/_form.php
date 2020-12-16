@@ -16,8 +16,8 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<p>пуск</p>
-
+<h3>Запуск ДГУ</h3>
+<br>
  <?= DateTimePicker::widget([
     'model' => $model,
     'attribute' => 'start_time',
@@ -32,7 +32,8 @@ use dosamigos\datetimepicker\DateTimePicker;
 ]);?>
 
 <br>
-<p>останов</p>
+<h3>Останов ДГУ</h3>
+<br>
    <?= DateTimePicker::widget([
     'model' => $model,
     'attribute' => 'stop_time',
@@ -71,7 +72,7 @@ $status = [
     <?= $form->field($model, 'type_start')->dropDownList($status); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
