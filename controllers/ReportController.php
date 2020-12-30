@@ -8,6 +8,9 @@ use app\models\Docs;
 use app\models\Engine;
 use yii\web\UploadedFile;
 use \PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use DateTime;
 
 
@@ -35,6 +38,74 @@ public function beforeAction($action)
         return $this->render('input_form');
     }
 
+   public function actionEmployer()
+   {
+    $inputFileName = 'uploads/graf.xlsx';
+    $inputFileType = 'Xlsx';
+    $sheetname = 'Лист1';
+    $reader = IOFactory::createReader($inputFileType);
+    $reader->setLoadSheetsOnly($sheetname);
+    $spreadsheet = $reader->load($inputFileName);
+    $cellValue = $spreadsheet->getActiveSheet()->getCell('A3');
+
+
+//echo $cellValue;
+    $convert = [
+      '1'=>'B',
+      '2'=>'C',
+      '3'=>'D',
+      '4'=>'E',
+      '5'=>'F',
+      '6'=>'G',
+      '7'=>'H',
+      '8'=>'I',
+      '9'=>'J',
+      '10'=>'K',
+      '11'=>'L',
+      '12'=>'M',
+      '13'=>'N',
+      '14'=>'O',
+      '15'=>'P',
+      '16'=>'Q',
+      '17'=>'R',
+      '18'=>'S',
+      '19'=>'T',
+      '20'=>'U',
+      '21'=>'V',
+      '22'=>'W',
+      '23'=>'X',
+      '24'=>'Y',
+      '25'=>'Z',
+      '26'=>'AA',
+      '27'=>'AB',
+      '28'=>'AC',
+      '29'=>'AD',
+      '30'=>'AE',
+      '31'=>'AF'
+    ];
+
+$range = 'F4:F8';
+
+$now = new DateTime("now");
+
+
+
+
+
+$dataArray = $spreadsheet->getActiveSheet()
+    ->rangeToArray(
+        $range,     // The worksheet range that we want to retrieve
+        NULL,        // Value that should be returned for empty cells
+        TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
+        TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
+        TRUE         // Should the array be indexed by cell row and cell column
+    );
+
+echo "<pre>";
+var_dump($now);
+echo "</pre>";
+   
+   }
 
 
  public function actionDoc()
@@ -101,11 +172,32 @@ switch ($data[2]) {
 public function createSpr($data)
 {
 
- $query =  substr($data[0] , 3, 7);
+ //$query =  substr($data[0] , 3, 7);
 
-  $mons  =  substr($data[0] , 3, 2);
+  //2020-12-02 09:00:00    25-02-2020 01:10
 
-  $year  =  substr($data[0],6,4);//
+//$begin = substr($data[0] , 3, 7);
+
+//$end   = substr($data[1] , 3, 7);
+
+//$begin = substr($data[0] , 0, 7);
+
+//$end   = substr($data[1] , 0, 7);
+
+/*echo $begin;
+echo '<br>';
+echo $end;
+
+die;*/
+
+
+ // $mons  =  substr($data[0] , 3, 2);
+
+ // $year  =  substr($data[0],6,4);//
+
+  $mons  =  substr($data[0] , 5, 2);
+
+  $year  =  substr($data[0],0,4);
 
   $last_day = cal_days_in_month(CAL_GREGORIAN, $mons, $year); //последний день месяца
 
@@ -143,11 +235,24 @@ $_monthsList_1 = array(
 
 
 
- $rows = Engine::find()
+ /*$rows = Engine::find()
                      ->asArray()
                      ->where( ['like', 'start_time', $query])
                      ->orderBy('id')
                      ->all();//выбираем   данные за  запрошенный   период 
+*/
+
+
+
+$rows = Engine::find()
+                   ->asArray()
+                   ->where(['between', 'start_time',$data[0],$data[1]])
+                   ->orderBy('start_time')->all();
+
+ //$rows = Engine::find()->asArray()->where(['like', 'start_time',[$begin, $end]  ])->orderBy('id')->all();
+ //$rows = Engine::find()->asArray()->where(['in', 'start_time',[$begin, $end ] ])->all();
+
+
 
 $i = 1;
 
@@ -188,7 +293,7 @@ foreach($rows as $item)//начало цикла
                                                         substr ($item['start_time'],11,5),
                                                         substr ($item['stop_time'], 0,10),
                                                         substr ($item['stop_time'],11,5),
-                                                                $itog  , 
+                                                                $itog , 
                                                                 $item['type_start']));
 
    $i++;

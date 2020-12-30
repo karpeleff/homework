@@ -23,9 +23,12 @@ $form = ActiveForm::begin([
     'model' => $model,
     'attribute' => 'begin_period',
     'template' => '{addon}{input}',
+     'language' => 'ru',
         'clientOptions' => [
             'autoclose' => true,
-            'format' => 'dd-mm-yyyy'
+            //'format' => 'dd-mm-yyyy',
+            'format' => 'yyyy-mm-dd 00:00:00',
+
         ]
 ]);?>
 
@@ -34,9 +37,11 @@ $form = ActiveForm::begin([
     'model' => $model,
     'attribute' => 'end_period',
     'template' => '{addon}{input}',
+     'language' => 'ru',
         'clientOptions' => [
             'autoclose' => true,
-            'format' => 'dd-mm-yyyy'
+            //'format' => 'dd-mm-yyyy'
+            'format' => 'yyyy-mm-dd 23:59:59',
         ]
 ]);?>
 

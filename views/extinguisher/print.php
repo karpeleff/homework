@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+<button class="btn btn-success" onclick="window.print()">Распечатать</button>
+<br><br>
 
  <style type="text/css">
 .main{
@@ -51,21 +53,21 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 
 .one {
-  width: 40%;
-  height: 40%;
+   width: 40%;
+   height: 40%;
    border:1px solid #000;
    border-radius: 8px;
-margin: 2px ;
- padding:3px 3px;
+   margin: 2px ;
+   padding:3px 3px;
 }
 
 .two{
     flex-basis: 60%;
      border:1px solid #000;
-   border-radius: 8px;
- text-align:left;
-   margin: 2px ;
-    padding:3px 3px;
+     border-radius: 8px;
+     text-align:left;
+     margin: 2px ;
+     padding:3px 3px;
 }
 
 
@@ -81,14 +83,14 @@ foreach ($model as $item)
  <div class="main">
     <div class="top">Вид технического обслуживания</div>
     <div class="centre">
-        <div class="one">Осмотр огнетушителя <?=$item['type']?> № <?=$item['number']?> снаружи 14.12.2020
+        <div class="one">Осмотр огнетушителя  <?=$item['type']?> № <?=$item['number']?> снаружи 14.12.2020
          Вес: <?=$item['weight']?> кг. </div>
         <div class="one">Проверка качества ОТВ 14.12.2020 г.;  ВДПО г.Дальнереченск <?=$item['staff_type']?> </div>
         <div class="one">Гидравлическое (пневматическое) /дата,
                            величина испытательного  давления/ </div>
     </div>
     <div class="centre">
-        <div class="two">ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Ситнюк Д.С </div>
+        <div class="two">ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Семенов П.Ф. </div>
         <div class="one">Дата проведения следующего испытания огнетушителя Март 2021г </div>
     </div>
  
@@ -101,7 +103,7 @@ foreach ($model as $item)
 
 }
 ?>
- 
+
 
 </div>
 
