@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Печать этикеток';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="extinguisher-index">
+<div class="extinguisher-index"   >
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -73,6 +73,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 </style>
 
+<script type="text/javascript">
+    var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Привет, Vue!'
+  }
+})
+</script>
+
+
 
 <?php 
 
@@ -80,7 +90,8 @@ foreach ($model as $item)
 {
 
 ?>
- <div class="main">
+ <div class="main"  >
+ 	
     <div class="top">Вид технического обслуживания</div>
     <div class="centre">
         <div class="one">Осмотр огнетушителя  <?=$item['type']?> № <?=$item['number']?> снаружи 14.12.2020
@@ -90,13 +101,17 @@ foreach ($model as $item)
                            величина испытательного  давления/ </div>
     </div>
     <div class="centre">
-        <div class="two">ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Семенов П.Ф. </div>
+        <div class="two">{{ message }}ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Семенов П.Ф. </div>
         <div class="one">Дата проведения следующего испытания огнетушителя Март 2021г </div>
     </div>
  
       
 
 </div>
+
+
+
+
 
 <?php
  // <?=$item

@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * Main application asset bundle.
@@ -23,9 +24,20 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+        'js/vue.js',
     ];
+
+ public $jsOptions = [
+        // скрипты будут подключены в <head>
+        'position' => View::POS_HEAD
+    ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
+
+
+
+
 }

@@ -1,7 +1,9 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
+$convert = require __DIR__ . '/convert.php';
 $db = require __DIR__ . '/db.php';
+
 
 $config = [
     'id' => 'basic',

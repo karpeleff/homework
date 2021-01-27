@@ -7,6 +7,7 @@ use app\models\UploadForm;
 use app\models\Docs;
 use app\models\Engine;
 use yii\web\UploadedFile;
+use yii\helpers\VarDumper;
 use \PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -38,6 +39,14 @@ public function beforeAction($action)
         return $this->render('input_form');
     }
 
+  public function actionTest()
+    {
+
+    	return $this->render('test');
+     // VarDumper::dump($convert);
+    }
+
+
    public function actionEmployer()
    {
     $inputFileName = 'uploads/graf.xlsx';
@@ -50,40 +59,7 @@ public function beforeAction($action)
 
 
 //echo $cellValue;
-    $convert = [
-      '1'=>'B',
-      '2'=>'C',
-      '3'=>'D',
-      '4'=>'E',
-      '5'=>'F',
-      '6'=>'G',
-      '7'=>'H',
-      '8'=>'I',
-      '9'=>'J',
-      '10'=>'K',
-      '11'=>'L',
-      '12'=>'M',
-      '13'=>'N',
-      '14'=>'O',
-      '15'=>'P',
-      '16'=>'Q',
-      '17'=>'R',
-      '18'=>'S',
-      '19'=>'T',
-      '20'=>'U',
-      '21'=>'V',
-      '22'=>'W',
-      '23'=>'X',
-      '24'=>'Y',
-      '25'=>'Z',
-      '26'=>'AA',
-      '27'=>'AB',
-      '28'=>'AC',
-      '29'=>'AD',
-      '30'=>'AE',
-      '31'=>'AF'
-    ];
-
+   
 $range = 'F4:F8';
 
 $now = new DateTime("now");
@@ -101,9 +77,9 @@ $dataArray = $spreadsheet->getActiveSheet()
         TRUE         // Should the array be indexed by cell row and cell column
     );
 
-echo "<pre>";
-var_dump($now);
-echo "</pre>";
+//echo "<pre>";
+//var_dump($now);
+//echo "</pre>";
    
    }
 
@@ -149,7 +125,7 @@ switch ($data[2]) {
 		$this->createSpr($data);
 		break;
 		case '2':
-		echo "нет метода";
+		$this->createYearReport($data);
 		break;
 		case '3':
 		# code...
@@ -247,7 +223,8 @@ $_monthsList_1 = array(
 $rows = Engine::find()
                    ->asArray()
                    ->where(['between', 'start_time',$data[0],$data[1]])
-                   ->orderBy('start_time')->all();
+                   ->orderBy('start_time')
+                   ->all();
 
  //$rows = Engine::find()->asArray()->where(['like', 'start_time',[$begin, $end]  ])->orderBy('id')->all();
  //$rows = Engine::find()->asArray()->where(['in', 'start_time',[$begin, $end ] ])->all();
@@ -362,6 +339,88 @@ foreach($rows as $item)//начало цикла
     $templateProcessor->saveAs("uploads/Справка о работе дизелей за ".$_monthsList_1[$mons]." ".$year." г.docx");
 
     $templateProcessor_2->saveAs("uploads/Акт списания ГСМ дизель за ".$_monthsList_1[$mons]." ".$year." г.docx");
+
+}
+
+public function  createYearReport($data)
+{
+
+	$year  =  substr($data[0],0,4);
+
+
+
+// Откл.промсети  SD6000E   ADR16.5    ТО
+
+
+     $type_start = 'ТО';
+
+     $type_engine = 'SD6000E';
+
+	 $templateProcessor   = new TemplateProcessor('uploads/template_form_otchet_god.docx');
+
+
+  // $result = $this->timeCalculation($year,$type_start,$type_engine);
+
+	  $result = $this->timeCalculation($year,$type_start,$type_engine);
+
+       echo $result[0];
+
+       echo '<br>';
+
+       echo $result[1];
+
+       echo '<br>';
+
+
+
+}
+
+
+public function  timeCalculation($year,$type_start,$type_engine)
+
+{
+
+	 $out = [];
+
+     $count_off = Engine::find()
+                              ->where(['type_start'        => $type_start])
+                              ->andWhere(['engine_type'    => $type_engine])
+                              ->count();
+
+           $row = Engine::find()
+                              ->asArray()
+                              ->where   (['type_start'     =>  $type_start])
+                              ->andWhere('YEAR(start_time) ='        .$year)
+                              ->andWhere(['engine_type'    => $type_engine])
+                              ->all();  
+
+$full_time = [];
+
+
+// $count_off;
+
+foreach($row as $item)
+{
+	$hour =   substr ($item['work_time'],0,2);
+
+	$min  =   substr ($item['work_time'],3,2);
+
+	$full_time[] =   ($hour * 60) + ($min) ;	
+
+}
+
+    $itog_off = array_sum($full_time);
+
+    $itog_off = ($itog_off / 60);
+
+	$itog_off = round($itog_off, 2);
+
+	$out[0] = $itog_off;
+
+	$out[1] = $count_off;
+
+    return   $out;
+
 
 }
 

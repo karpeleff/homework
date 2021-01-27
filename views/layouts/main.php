@@ -24,10 +24,18 @@ AppAsset::register($this);
     
     <?php $this->head() ?>
 </head>
-<body>
+
+
+
+<body >
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+
+
+
+
+
+<div class="wrap" >
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -66,7 +74,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" >
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -85,5 +93,7 @@ AppAsset::register($this);
 
 <?php $this->endBody() ?>
 </body>
+
+
 </html>
 <?php $this->endPage() ?>
