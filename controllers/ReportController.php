@@ -128,10 +128,16 @@ switch ($data[2]) {
 		$this->createYearReport($data);
 		break;
 		case '3':
-		# code...
+		
 		break;
 		case '4':
 		# code...
+		break;
+		case '5':
+		# code...
+		break;
+		case '6':
+		$this->createMonthPlan($data);
 		break;
 	
 	default:
@@ -148,28 +154,6 @@ switch ($data[2]) {
 public function createSpr($data)
 {
 
- //$query =  substr($data[0] , 3, 7);
-
-  //2020-12-02 09:00:00    25-02-2020 01:10
-
-//$begin = substr($data[0] , 3, 7);
-
-//$end   = substr($data[1] , 3, 7);
-
-//$begin = substr($data[0] , 0, 7);
-
-//$end   = substr($data[1] , 0, 7);
-
-/*echo $begin;
-echo '<br>';
-echo $end;
-
-die;*/
-
-
- // $mons  =  substr($data[0] , 3, 2);
-
- // $year  =  substr($data[0],6,4);//
 
   $mons  =  substr($data[0] , 5, 2);
 
@@ -210,36 +194,21 @@ $_monthsList_1 = array(
 );
 
 
-
- /*$rows = Engine::find()
-                     ->asArray()
-                     ->where( ['like', 'start_time', $query])
-                     ->orderBy('id')
-                     ->all();//выбираем   данные за  запрошенный   период 
-*/
-
-
-
 $rows = Engine::find()
                    ->asArray()
                    ->where(['between', 'start_time',$data[0],$data[1]])
                    ->orderBy('start_time')
                    ->all();
 
- //$rows = Engine::find()->asArray()->where(['like', 'start_time',[$begin, $end]  ])->orderBy('id')->all();
- //$rows = Engine::find()->asArray()->where(['in', 'start_time',[$begin, $end ] ])->all();
-
-
-
-$i = 1;
+ $i = 1;
 
  $itog_sd  = [];
  $itog_adr = [];
 
 $count = count($rows);// количество полей
 
-$templateProcessor   = new TemplateProcessor('uploads/template_dizel_work.docx');
-$templateProcessor_2 = new TemplateProcessor('uploads/template_akt_spis.docx');//
+$templateProcessor   = new TemplateProcessor('templates/template_dizel_work.docx');
+$templateProcessor_2 = new TemplateProcessor('templates/template_akt_spis.docx');//
 
 $templateProcessor->cloneRow('des_type', $count);// клонируем поля в документе
 
@@ -302,7 +271,7 @@ foreach($rows as $item)//начало цикла
 
 /////////////////////
 
-    $templateProcessor_2 = new TemplateProcessor('uploads/template_akt_spis.docx');
+    $templateProcessor_2 = new TemplateProcessor('templates/template_akt_spis.docx');
 
 
     $rate_sd  = $sd  * 1.9;
@@ -356,7 +325,7 @@ public function  createYearReport($data)
 
      $type_engine = 'SD6000E';
 
-	 $templateProcessor   = new TemplateProcessor('uploads/template_form_otchet_god.docx');
+	 $templateProcessor   = new TemplateProcessor('templates/template_form_otchet_god.docx');
 
 
   // $result = $this->timeCalculation($year,$type_start,$type_engine);
@@ -420,6 +389,72 @@ foreach($row as $item)
 	$out[1] = $count_off;
 
     return   $out;
+
+
+}
+
+
+public function createMonthPlan($data)
+{
+	
+$arr = $this->calc($data);
+
+$templateProcessor   = new TemplateProcessor('templates/template_mons_plan.docx');
+$templateProcessor->setValue('y',$arr['year']);
+$templateProcessor->setValue('m_t',$arr['mons_text_2']);
+$templateProcessor->setValue('m_d',$arr['mons_digit']);
+$templateProcessor->setValue('l',$arr['last_day']);
+$templateProcessor->saveAs("uploads/План работ на  ".$arr['mons_text_2']." ".$arr['year']." г.docx");
+
+}
+
+public  function  calc($data)
+{
+  
+$List_1 = array(
+  "01" => "января",
+  "02" => "февраля",
+  "03" => "марта",
+  "04" => "апреля",
+  "05" => "мая",
+  "06" => "июня",
+  "07" => "июля",
+  "08" => "августа",
+  "09" => "сентября",
+  "10" => "октября",
+  "11" => "ноября",
+  "12" => "декабря"
+);
+
+$List_2 = array(
+  "01" => "январь",
+  "02" => "февраль",
+  "03" => "март",
+  "04" => "апрель",
+  "05" => "май",
+  "06" => "июнь",
+  "07" => "июль",
+  "08" => "август",
+  "09" => "сентябрь",
+  "10" => "октябрь",
+  "11" => "ноябрь",
+  "12" => "декабрь"
+);
+
+     $arr = [];
+
+     $arr['mons_digit']  =  substr($data[0] , 5, 2); 
+
+     $arr['year']        =  substr($data[0],0,4);
+
+     $arr['last_day']    = cal_days_in_month(CAL_GREGORIAN, $arr['mons_digit'], $arr['year']);
+
+     $arr['mons_text_1'] = $List_1[$arr['mons_digit']];
+
+     $arr['mons_text_2'] = $List_2[$arr['mons_digit']];
+
+     return $arr; 
+
 
 
 }
