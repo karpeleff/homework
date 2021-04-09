@@ -82,8 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
 })
 </script>
 
-
-
 <?php 
 
 foreach ($model as $item)
@@ -94,32 +92,20 @@ foreach ($model as $item)
  	
     <div class="top">Вид технического обслуживания</div>
     <div class="centre">
-        <div class="one">Осмотр огнетушителя  <?=$item['type']?> № <?=$item['number']?> снаружи 14.12.2020
+        <div class="one">Осмотр огнетушителя  <?=$item['type']?> № <?=$item['number']?> снаружи 10.03.2021
          Вес: <?=$item['weight']?> кг. </div>
         <div class="one">Проверка качества ОТВ 14.12.2020 г.;  ВДПО г.Дальнереченск <?=$item['staff_type']?> </div>
         <div class="one">Гидравлическое (пневматическое) /дата,
                            величина испытательного  давления/ </div>
     </div>
     <div class="centre">
-        <div class="two">{{ message }}ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Семенов П.Ф. </div>
-        <div class="one">Дата проведения следующего испытания огнетушителя Март 2021г </div>
+        <div class="two">ВЦ ОВД ОПРС Богуславец. Техник  РН. РЛ и связи Ситнюк  Д.С. </div>
+        <div class="one">Дата проведения следующего испытания огнетушителя Июнь 2021г </div>
     </div>
- 
-      
-
 </div>
-
-
-
-
-
 <?php
- // <?=$item
-
 }
 ?>
-
-
 </div>
 
 

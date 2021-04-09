@@ -215,9 +215,9 @@ $templateProcessor->cloneRow('des_type', $count);// клонируем поля 
 foreach($rows as $item)//начало цикла
   {
 
-	$hour =   substr ($item['work_time'],0,2);
+	$hour =  substr ($item['work_time'],0,2);
 
-	$min  =   substr ($item['work_time'],3,2);
+	$min  =  substr ($item['work_time'],3,2);
 
 	$itog = ($hour * 60) + ($min) ;
 
@@ -278,9 +278,9 @@ foreach($rows as $item)//начало цикла
 
     $rate_adr = $adr * 2.7;
 
-    $rate_sd  = round($rate_sd,2);
+    $rate_sd  = round($rate_sd,3);// округляем  до  трех знаков 
 
-    $rate_adr = round($rate_adr,2);
+    $rate_adr = round($rate_adr,3);
 
     $common   = $rate_sd + $rate_adr;
 
